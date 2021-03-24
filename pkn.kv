@@ -1,0 +1,113 @@
+ScreenManager:                  #objekt odpowiedzialny za zarządzanie dwoma ekranami
+    First:                      #ekran pierwszy, definiowany niżej po First@Screen
+        id: first               #id całego ekranu pierwszego
+    Second:                     #ekran drugi, definiowany niżej po Second@Screen
+        id: second
+<First@Screen>:                 #odniesienie sie do Screenu pierwszego
+    name: 'screen1'
+    MDTextFieldRound:                       #pole do wypelnienia przez uzytkownika
+        id: username
+        text: "Enter player name"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        size_hint_x: None
+        width: 300
+        mode: "rectangle"
+        icon_right: "scissors-cutting"
+    MDRectangleFlatButton:                  #zaokraglony przycisk Submit
+        text: "Submit"
+        pos_hint: {'center_x': .5, 'center_y': 0.4}
+        on_release: root.manager.current = 'screen2'        # po wciśnięciu przenosi użytkownika do ekranu drugiego 'screen2'
+        on_press: app.get_data()                            # po wciśnieciu aktywuje metode get_data() która miesci sie w gałęzi appki i podmienia text Labelu id: lab na input wprowadzony przez użytkownika
+<Second@Screen>:
+    name: 'screen2'
+    canvas:
+        Rectangle:
+            source: 'background_gradient.jpg'
+            pos: self.pos
+            size: self.size
+    Label:                                                  # label lab mieszczący się po lewej stronie ekranu wyświtlający text z TextFieldu (id: username) wprowadzony przez użytkownika w ekranie pierwszym
+        id: lab
+        text:
+        font_size: 20
+        size_hint: (0.6, 1.5)
+    Label:                                                  # label lab2 wyświetlający text Computer po prawej stronie ekranu
+        id: lab2
+        text: 'Computer'
+        font_size: 20
+        size_hint: (1.5, 1.5)
+    Button:
+        id: papier
+        text: ''
+        pos_hint: {'center_x':0.1,'center_y':.5}
+        size: 200, 300
+        size_hint: None, None
+        background_normal: 'paper.png'
+        background_down: 'paper.png'
+        on_press: app.draw_computer()                       # na wciśnięcie aktywuje metode draw_computer która losowo przypisuje background przycisku Computera
+        on_release: app.player_choice_paper()
+    Button:
+        id: kamien
+        text: ''
+        pos_hint: {'center_x':0.3,'center_y':.5}
+        size: 150, 120
+        size_hint: None, None
+        background_normal: 'rock.png'
+        background_down: 'rock.png'
+        on_press: app.draw_computer()
+        on_release: app.player_choice_rock()
+    Button:
+        id: nozyce
+        text: ''
+        pos_hint: {'center_x':0.5,'center_y':.5}
+        size: 160, 200
+        size_hint: None, None
+        background_normal: 'scissors.png'
+        background_down: 'scissors.png'
+        on_press: app.draw_computer()
+        on_release: app.player_choice_scissors()
+    Button:
+        id: computer_button
+        text: ''
+        pos_hint: {'center_x':0.8,'center_y':.5}
+        size:
+        size_hint: None, None
+        background_normal:
+    Label:
+        id: remis
+        text:
+        size_hint: (1.0, 0.5)
+        font_size: 20
+
+
+
+
+#<PKNMenu>:
+    #name: 'pknmenu'
+    #MDTextFieldRound: pole do wypelnienia przez uzytkownika
+        #id: username
+        #text: "Enter player name"
+        #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        #size_hint_x: None
+        #width: 300
+        #mode: "rectangle"
+        #icon_right: "scissors-cutting"
+
+
+    #MDRectangleFlatButton: przycisk Submit z funkcją on_press ktora po wcisnieciu przenosi na ekran 'pkngame'
+        #text: "Submit"
+        #pos_hint: {'center_x': .5, 'center_y': 0.4}
+        #on_press: root.manager.current = 'pkngame'  root.manager.current = 'pkngame' app.get_data() na wcisniecie aktywuje metode get_data() zdefiniowaną w main.py która bedzie przetrzymywac text z ide username
+        #on_release: app.checkprint()
+
+#<PKNGame>:
+    #name: 'pkngame'
+    #canvas:
+        #Rectangle:
+            #source: 'image.jpg'
+            #pos: self.pos
+            #size: self.size
+    #Label:
+        #text: root.player
+
+
+
